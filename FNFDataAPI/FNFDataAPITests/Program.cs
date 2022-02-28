@@ -17,6 +17,7 @@ namespace FNFDataAPITests
             {
                 FNFSong song;
                 if (option == "1")
+                    //here
                     song = new FNFSong(data);
                 else
                     song = new FNFSong(data, FNFSong.DataReadType.AsRawJson);
@@ -44,24 +45,27 @@ namespace FNFDataAPITests
                             sectionToModify = section;
                         }
 
-                        Console.WriteLine("Note: " + note.Type + "\nTime: " + note.Time + "\nLength: " + note.Length);
+                        Console.WriteLine("Note: " + note.Type + "\nTime: " + note.Time + "\nLength: " + note.Length + "\nModType: " + note.ModType);
                         
                     }
                 }
                 Console.WriteLine("TEST 2 - COMPLETE");
                 Console.WriteLine("TEST 3 - ADDING/REMOVING/MODIFYING NOTES");
-                noteToModify = sectionToModify.ModifyNote(noteToModify, new FNFSong.FNFNote(noteToModify.Time, (decimal)FNFSong.NoteType.Left, 35));
-                sectionToModify.AddNote(new FNFSong.FNFNote(noteToModify.Time += 1000,(decimal) FNFSong.NoteType.Right, 75));
+                noteToModify = sectionToModify.ModifyNote(noteToModify, new FNFSong.FNFNote(noteToModify.Time, (decimal)FNFSong.NoteType.Left, 35, noteToModify.ModType));
+                sectionToModify.AddNote( new FNFSong.FNFNote( noteToModify.Time += 1000, (decimal)FNFSong.NoteType.Right, 75, noteToModify.ModType ) );
+                ;
                 sectionToModify.RemoveNote(sectionToModify.Notes[3]); // the first section with less than 4 notes will fail this.
                 Console.WriteLine("TEST 3 - COMPLETE");
                 Console.WriteLine("TEST 4 - COMPILE");
                 song.SaveSong("compiledSong.json");
                 Console.WriteLine("TEST 5 - COMPLETE");
                 Console.WriteLine("END");
+                Console.ReadKey( );
             }
             catch (Exception e)
             {
                 Console.WriteLine("FAILED TESTS.\n" + e);
+                Console.ReadKey( );
             }
         }
     }

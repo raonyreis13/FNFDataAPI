@@ -54,6 +54,5 @@ namespace FridayNightFunkin.Json
         {
             return JsonConvert.DeserializeObject<Root>(File.ReadAllText(filePath));
         }
-        
     }
 }
